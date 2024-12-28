@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(#a82c2c, #ac4c4c);
+    background-repeat: no-repeat;
+    height: calc(100vh - 16px);
+    color: #ffffff;
+}
+
+div {
+    font-size: 30px;
+    border-bottom: 2px solid #ffffff;
+    font-weight: bold;
+    margin-bottom: 100px;
+}

@@ -1,0 +1,273 @@
+.table {
+    margin-top: 10px;
+    width: 350px;
+    height: 350px;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    background-image: url("../images/ocean1.jpg");
+    user-select: none;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.field-attack {
+    width: 23px;
+    height: 23px;
+    border: 1px dotted rgba(87, 87, 87, 0.979);
+    background-color: transparent;
+}
+
+.field-attack:hover {
+    cursor: pointer;
+    background-color: rgb(102, 181, 212);
+}
+
+.field-attack.attacked-not-hit {
+    background-image: url("../images/x.png");
+    background-size: 23px;
+    background-position: 0px 3px;
+    background-repeat: no-repeat;
+}
+
+.field-attack.attacked-hit {
+    background-image: url("../images/ok.png");
+    background-size: 23px;
+    background-position: 0px 3px;
+    background-repeat: no-repeat;
+}
+
+.field-attack.attacked-hit:hover {
+    cursor: default;
+    background-color: rgb(56, 172, 218);
+}
+
+.field-attack.attacked-not-hit:hover {
+    cursor: default;
+    background-color: rgb(56, 172, 218);
+}
+
+.field-ship {
+    width: 23px;
+    height: 23px;
+    border: 1px dotted rgba(87, 87, 87, 0.979);
+    background-color: transparent;
+}
+
+.field-ship.attacked {
+    background-image: url("../images/crater.png");
+    background-size: 23px;
+    /* background-position: 0px 3px; */
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+#checkNewGameModal.modal {
+    display: flex;
+    background-color: rgba(160, 160, 160);
+}
+
+.ship-4 {
+    width: 25px;
+    height: 98px;
+    background-image: url("../images/ship3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 0;
+    user-select: none;
+}
+
+.ship-3 {
+    width: 23px;
+    height: 73px;
+    background-image: url("../images/ship2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 0;
+    user-select: none;
+}
+
+.ship-2 {
+    width: 23px;
+    height: 48px;
+    background-image: url("../images/ship1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 0;
+    user-select: none;
+}
+
+.ship-4-r {
+    height: 25px;
+    width: 98px;
+    background-image: url("../images/ship3-r.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 0;
+    user-select: none;
+}
+
+.ship-3-r {
+    height: 23px;
+    width: 73px;
+    background-image: url("../images/ship2-r.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 0;
+    user-select: none;
+}
+
+.ship-2-r {
+    height: 23px;
+    width: 48px;
+    background-image: url("../images/ship1-r.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    z-index: 0;
+}
+
+.ship-2.selected,
+.ship-3.selected,
+.ship-4.selected {
+    background-color: #FFFF0020;
+}
+
+.ship-2.rotated,
+.ship-3.rotated,
+.ship-4.rotated {
+    transform: rotate(90deg);
+}
+
+#attackTable.table {
+    transition: 1s;
+    height: 0;
+    overflow: hidden;
+}
+
+#attackTable.table.show {
+    height: 350px;
+}
+
+#ships.hide {
+    display: none;
+}
+
+#gameDetails {
+    display: flex;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+
+#gameDetails #opponent {
+    width: 100%;
+    font-weight: bold;
+}
+
+#gameDetails #theGameId {
+    width: 100%;
+    text-align: end;
+    font-weight: bold;
+}
+
+#checkNewGameModal.hide {
+    display: none;
+}
+
+.rotate-ship-btn {
+    position: absolute;
+    margin-left: 360px;
+}
+
+.rotate-ship-btn img {
+    width: 40px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+    .table {
+        width: 280px;
+        height: 280px;
+    }
+
+    .rotate-ship-btn {
+        margin-left: 280px;
+    }
+
+    .field-attack {
+        width: 18px;
+        height: 18px;
+    }
+
+    .field-attack.attacked-not-hit {
+        background-size: 18px;
+    }
+
+    .field-attack.attacked-hit {
+        background-size: 18px;
+    }
+
+    .field-ship {
+        width: 18px;
+        height: 18px;
+    }
+
+    .field-ship.attacked {
+        background-size: 18px;
+    }
+
+    #attackTable.table.show {
+        height: 280px;
+    }
+
+    .ship-4 {
+        width: 18px;
+        height: 72px;
+    }
+
+    .ship-3 {
+        width: 18px;
+        height: 54px;
+    }
+
+    .ship-2 {
+        width: 18px;
+        height: 36px;
+    }
+
+    .ship-4-r {
+        height: 18px;
+        width: 72px;
+    }
+
+    .ship-3-r {
+        height: 18px;
+        width: 54px;
+    }
+
+    .ship-2-r {
+        height: 18px;
+        width: 36px;
+    }
+}

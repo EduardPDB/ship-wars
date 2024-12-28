@@ -1,0 +1,26 @@
+label {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+input {
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.btn-small {
+    margin-top: 10px;
+    width: auto;
+    color: black;
+    border: 2px solid black;
+}
+
+.btn-small:hover {
+    border: 2px solid #FFB52A;
+}
+
+.user-inputs {
+    margin-top: 15px;
+    padding-left: 17px;
+}
