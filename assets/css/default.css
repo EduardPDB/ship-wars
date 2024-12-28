@@ -153,7 +153,7 @@ label {
 
 .custom-table td,
 .custom-table th {
-    padding: 5px 20px;
+    padding: 5px 10px;
 }
 
 .d-block {
@@ -185,5 +185,27 @@ label {
     }
     100% {
         transform: translateX(+80px);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .modal-container {
+        width: 250px;
+        height: 250px;
+        margin-top: 50px;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .custom-table thead {
+        font-size: 12px;
+    }
+
+    .custom-table {
+        margin: 10px;
+    }
+
+    .buttons-navigation {
+        padding: 10px;
     }
 }

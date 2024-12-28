@@ -29,7 +29,10 @@
         <div style="text-align: center;">
             <button class="btn btn-small" id="submit">SUBMIT</button>
         </div>
+
+        <p style="color: #fff">Ai deja un cont? Atunci <a href="login">intra in cont</a></p>
     </div>
+
     <div id="loading" class="modal">
         <div class="loading-container">
             <div class="loading-bg">

@@ -3,9 +3,10 @@ import post, { baseUrl, hideLoadingPage, pathArray , token } from "./helpers.js"
 
 if (token) {
     window.location = `${baseUrl}${pathArray}`;
+} else {
+    hideLoadingPage();
 }
 
-hideLoadingPage();
 
 document.getElementById('submitBtn').removeEventListener('click', login);
 document.getElementById('submitBtn').addEventListener('click', login);

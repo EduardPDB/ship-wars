@@ -32,6 +32,32 @@ export default class Game {
      */
     isDrag = false;
 
+    /**
+     * The explosion sound when a field is hit.
+     */
+    explosionAudio;
+
+    /**
+     * A callback to be called when closing the message modal.
+     */
+    callback;
+
+    /**
+     * Win animations
+     */
+    winIframes = [
+        '<iframe src="https://giphy.com/embed/l1EtjmFngkQTlvN3a" width="100%" height="100%" style="" frameBorder="0" allowFullScreen></iframe>',
+        '<iframe src="https://giphy.com/embed/Qadbv0ccmSrJL9Vlwj" width="100%" height="100%" style="" frameBorder="0" allowFullScreen></iframe>'
+    ];
+
+    /**
+     * Win animations
+     */
+    lostIframes = [
+        '<iframe src="https://giphy.com/embed/MwIvOD6KuAdMiE9P5Z" width="100%" height="100%" style="" frameBorder="0" allowFullScreen></iframe>',
+        '<iframe src="https://giphy.com/embed/B4uP3h97Hi2UaqS0E3" width="100%" height="100%" style="" frameBorder="0" allowFullScreen></iframe>'
+    ];
+
     constructor()
     {
         this.baseUrl      = window.location.origin;
@@ -53,7 +79,7 @@ export default class Game {
         this.rotateShip       = this.rotateShip.bind(this);
         this.attack           = this.attack.bind(this);
         this.userExit         = this.userExit.bind(this);
-
+        this.explosionAudio   = new Audio('assets/sounds/explosion.mp3');
         document.getElementById('startGame').removeEventListener('click', this.getStarted);
         document.getElementById('startGame').addEventListener('click', this.getStarted);
         document.addEventListener('pointerdown', this.selectShip);
@@ -94,13 +120,35 @@ export default class Game {
                 }
 
                 if (attackedField && !this.shipFields[attackedField].classList.contains('attacked')) {
+                    this.explosionAudio.play();
                     this.shipFields[attackedField].classList.add('attacked');
                 }
 
+                if (response.data.win) {
+                    this.callback = () => {
+                        window.location.reload();
+                        return;
+                    }
+                    const randomIndex = Math.floor(Math.random() * this.winIframes.length);
+                    this.displayMessage(this.winIframes[randomIndex]);
+                }
+
+                if (response.data.userWon && response.data.lost) {
+                    this.callback = () => {
+                        window.location.reload();
+                        return;
+                    }
+                    const randomIndex = Math.floor(Math.random() * this.lostIframes.length);
+                    this.displayMessage(this.lostIframes[randomIndex]);
+                }
+
                 if (response.data.opponentLeft) {
+                    this.callback = () => {
+                        window.onbeforeunload = null;
+                        window.location.reload();
+                        return;
+                    }
                     this.displayMessage('A iesit inamicul!');
-                    window.onbeforeunload = null;
-                    window.location.reload();
                 }
             }
             setTimeout(this.checkMoves, 2000);
@@ -113,7 +161,9 @@ export default class Game {
         document.removeEventListener('pointerdown', this.startDraging);
         document.removeEventListener('pointerup', this.endDraging);
         document.removeEventListener('keypress', this.rotateShip);
-        document.querySelector('.rotate-ship-btn').removeEventListener('pointerdown', this.rotateShip);
+        const rotateShipBtn = document.querySelector('.rotate-ship-btn');
+        rotateShipBtn.removeEventListener('pointerdown', this.rotateShip);
+        rotateShipBtn.remove();
     }
 
     hideStartGameModal() {
@@ -240,6 +290,7 @@ export default class Game {
                     return;
                 }
 
+                hideLoadingPage();
                 return this.displayMessage(response.message);
             });
         } catch (error) {
@@ -283,6 +334,10 @@ export default class Game {
             return;
         }
         if (this.modal.classList.contains('show')) {
+            if (this.callback) {
+                this.callback();
+                this.callback = null;
+            }
             this.modal.classList.remove('show');
         }
     }
@@ -336,7 +391,9 @@ export default class Game {
         if (!this.selectedShip) {
             return;
         }
-        e.preventDefault();
+        if (e.cancelable) {
+            e.preventDefault();
+        }
         this.buttonDown = true;
         document.addEventListener('touchdown', this.preventPageFromScrolling);
         document.addEventListener('touchmove', this.preventPageFromScrolling, { passive: false });
@@ -345,11 +402,13 @@ export default class Game {
                 document.removeEventListener('pointermove', this.dragSelectedShip);
                 document.addEventListener('pointermove', this.dragSelectedShip);
             }
-        }, 500);
+        }, 250);
     }
 
     preventPageFromScrolling(e) {
-        e.preventDefault();
+        if (e.cancelable) {
+            e.preventDefault();
+        }
     }
 
     endDraging(e) {
@@ -359,7 +418,9 @@ export default class Game {
         document.removeEventListener('pointermove', this.dragSelectedShip);
         document.removeEventListener('touchmove', this.preventPageFromScrolling, { passive: false });
         this.buttonDown = false;
-        e.preventDefault();
+        if (e.cancelable) {
+            e.preventDefault();
+        }
         if (this.isDrag) {
             let topFields = document.elementsFromPoint(this.selectedShip.offsetLeft, this.selectedShip.offsetTop);
             topFields.forEach(field => {
@@ -372,7 +433,9 @@ export default class Game {
     }
 
     dragSelectedShip(event) {
-        event.preventDefault();
+        if (event.cancelable) {
+            event.preventDefault();
+        }
         if (!this.selectedShip) {
             return;
         }

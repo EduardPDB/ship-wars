@@ -3,9 +3,9 @@ import post, { baseUrl, hideLoadingPage, pathArray, token } from "./helpers.js";
 
 if (token) {
     window.location = `${baseUrl}${pathArray}`;
+} else {
+    hideLoadingPage();
 }
-
-hideLoadingPage();
 
 document.getElementById('submit').removeEventListener('click', register);
 document.getElementById('submit').addEventListener('click', register);
@@ -24,7 +24,7 @@ function register()
     post(url, data).then((response) => {
         if (response.status === 'ok') {
             localStorage.setItem('token', response.data.token);
-            window.location = baseUrl;
+            window.location = `${baseUrl}${pathArray}`;
         } else {
             alert(response.message);
         }

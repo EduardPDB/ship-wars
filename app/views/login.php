@@ -25,7 +25,10 @@
         <div style="text-align: center;">
             <button id="submitBtn" class="btn btn-small">SUBMIT</button>
         </div>
+
+        <p style="color: #fff">Nu ai cont? Atunci <a href="register">inregistreaza-te</a></p>
     </div>
+
     <div id="loading" class="modal">
         <div class="loading-container">
             <div class="loading-bg">
