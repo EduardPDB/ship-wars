@@ -151,33 +151,37 @@ class GameModel extends BaseModel {
         $this->dbUpdateDef(['user_left' => $userId], ['id' => $gameId]);
     }
 
-    public function checkGameWin($gameId)
+    public function checkGameLost($gameId)
     {
         $sql = "
             SELECT (SELECT COUNT(*) 
                     FROM attacks
                     WHERE user_id = g.user1
-                    AND game_id = g.id
+                    AND game_id = $gameId
                     AND hit = true) AS user1_hits,
                     (SELECT COUNT(*) 
                     FROM attacks
                     WHERE user_id = g.user2
-                    AND game_id = g.id
+                    AND game_id = $gameId
                     AND hit = true) AS user2_hits,
                     g.user1,
-                    g.user2
+                    g.user2,
+                    user1.name user1name,
+                    user2.name user2name
             FROM games g
+            left join users user1 on user1.id = g.user1
+            left join users user2 on user2.id = g.user2
             WHERE g.id = $gameId
         ";
         $result = $this->dbQuery($sql, false);
         return [
             [
                 'id' => $result['user1'],
-                'win' => $result['user1_hits'] >= 27
+                'lost' => $result['user1_hits'] >= 27
             ],
             [
                 'id' => $result['user2'],
-                'win' => $result['user2_hits'] >= 27
+                'lost' => $result['user2_hits'] >= 27
             ]
         ];
     }

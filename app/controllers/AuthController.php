@@ -11,7 +11,8 @@ class AuthController extends BaseController {
         'login',
         'register',
         'loginView',
-        'registerView'
+        'registerView',
+        'logout',
     ];
 
     public function initialize(): void
@@ -55,7 +56,13 @@ class AuthController extends BaseController {
         if ($data['password'] !== $data['confirmPassword']) return $this->exitJson('Parolele nu corespund.', [], 'error');
 
         unset($data['confirmPassword']);
-        
+
+        $isValidEmail = $this->Auth->validateEmail($data['email']);
+        if (!$isValidEmail) $this->exitJsonErr('Invalid email.');
+
+        $isValidPassword = $this->Auth->validatePassword($data['password']);
+        if (!$isValidPassword) $this->exitJsonErr('Password length must be higher than 8 characters.');
+
         $user = $this->User->getUserByEmailOrPhone($data['email']);
         if (!empty($user)) return $this->exitJson('There is already an user with this email.', [], 'error');
         
@@ -76,6 +83,8 @@ class AuthController extends BaseController {
     }
 
     public function checkToken() {
-        $this->exitJson();
+        $userId = $this->getUser('id');
+        $token = $this->Auth->getTokenNameByUserId($userId); // In case token got refreshed.
+        $this->exitJson('', ['token' => $token]);
     }
 }

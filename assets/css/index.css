@@ -16,10 +16,11 @@ body {
 }
 
 .field-attack {
-    width: 23px;
-    height: 23px;
+    width: 25px;
+    height: 25px;
     border: 1px dotted rgba(87, 87, 87, 0.979);
     background-color: transparent;
+    box-sizing: border-box;
 }
 
 .field-attack:hover {
@@ -29,14 +30,14 @@ body {
 
 .field-attack.attacked-not-hit {
     background-image: url("../images/x.png");
-    background-size: 23px;
+    background-size: 25px;
     background-position: 0px 3px;
     background-repeat: no-repeat;
 }
 
 .field-attack.attacked-hit {
     background-image: url("../images/ok.png");
-    background-size: 23px;
+    background-size: 25px;
     background-position: 0px 3px;
     background-repeat: no-repeat;
 }
@@ -52,15 +53,16 @@ body {
 }
 
 .field-ship {
-    width: 23px;
-    height: 23px;
+    width: 25px;
+    height: 25px;
     border: 1px dotted rgba(87, 87, 87, 0.979);
     background-color: transparent;
+    box-sizing: border-box;
 }
 
 .field-ship.attacked {
     background-image: url("../images/crater.png");
-    background-size: 23px;
+    background-size: 25px;
     /* background-position: 0px 3px; */
     background-repeat: no-repeat;
     z-index: 1;
@@ -72,7 +74,7 @@ body {
 }
 
 .ship-4 {
-    width: 25px;
+    width: 23px;
     height: 98px;
     background-image: url("../images/ship3.png");
     background-size: contain;
@@ -82,6 +84,7 @@ body {
     position: absolute;
     z-index: 0;
     user-select: none;
+    transform: translateX(1px);
 }
 
 .ship-3 {
@@ -95,6 +98,7 @@ body {
     position: absolute;
     z-index: 0;
     user-select: none;
+    transform: translateX(1px);
 }
 
 .ship-2 {
@@ -108,10 +112,11 @@ body {
     position: absolute;
     z-index: 0;
     user-select: none;
+    transform: translateX(1px);
 }
 
 .ship-4-r {
-    height: 25px;
+    height: 23px;
     width: 98px;
     background-image: url("../images/ship3-r.png");
     background-size: contain;
@@ -121,6 +126,8 @@ body {
     position: absolute;
     z-index: 0;
     user-select: none;
+    transform: translateY(1px);
+    transform: translateX(1px);
 }
 
 .ship-3-r {
@@ -134,6 +141,8 @@ body {
     position: absolute;
     z-index: 0;
     user-select: none;
+    transform: translateY(1px);
+    transform: translateX(1px);
 }
 
 .ship-2-r {
@@ -146,6 +155,8 @@ body {
     cursor: pointer;
     position: absolute;
     z-index: 0;
+    transform: translateY(1px);
+    transform: translateX(1px);
 }
 
 .ship-2.selected,
@@ -197,7 +208,7 @@ body {
 
 .rotate-ship-btn {
     position: absolute;
-    margin-left: 360px;
+    margin-top: 360px;
 }
 
 .rotate-ship-btn img {
@@ -212,12 +223,12 @@ body {
     }
 
     .rotate-ship-btn {
-        margin-left: 280px;
+        margin-top: 280px;
     }
 
     .field-attack {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
     }
 
     .field-attack.attacked-not-hit {
@@ -229,8 +240,8 @@ body {
     }
 
     .field-ship {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
     }
 
     .field-ship.attacked {
@@ -259,15 +270,18 @@ body {
     .ship-4-r {
         height: 18px;
         width: 72px;
+        transform: translateY(2px);
     }
 
     .ship-3-r {
         height: 18px;
         width: 54px;
+        transform: translateY(2px);
     }
 
     .ship-2-r {
         height: 18px;
         width: 36px;
+        transform: translateY(2px);
     }
 }

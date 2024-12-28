@@ -93,7 +93,10 @@ class PlayController extends BaseController {
 
 		$data['hit'] = $isHit;
 
-		$this->exitJson("", $data);
+		$message = "L-ai spart.";
+		if (!$isHit) $message = "Ai dat pe langa broo.";
+
+		$this->exitJson($message, $data);
 	}
 
 	public function checkMoves()
@@ -102,13 +105,15 @@ class PlayController extends BaseController {
 		$gameId 	   = $this->getUser('game_id');
 		$userId 	   = $this->getUser('id');
 		$fieldAttacked = $this->game->getLastAttackedByUserId($userId);
-		[$user1, $user2] = $this->game->checkGameWin($gameId);
+		[$user1, $user2] = $this->game->checkGameLost($gameId);
 
-		if ($user1['win'] || $user2['win']) {
+		$gameWinData['user_win'] = null;
+		if ($user1['lost'] || $user2['lost']) {
 			$gameWinData['finished'] = 1;
-			$gameWinData['user_win'] = $user1['win'] ? $user1['id'] : $user2['id'];
+			$gameWinData['user_win'] = $user1['lost'] == false ? $user1['id'] : $user2['id'];
 			$this->game->updateGame($gameId, $gameWinData);
 		}
+
 		$game 		   = $this->game->getGameById($gameId);
 		$opponent      = $this->user->getUserById($game['user1'] === $userId ? $game['user2'] : $game['user1']);
 
@@ -119,7 +124,9 @@ class PlayController extends BaseController {
 			'gamefinished'  => $game['finished'] ? true : false,
 			'opponent'		=> $opponent['username'] ?? $opponent['email'] ?? false,
 			'opponentLeft'  => false,
-			'win'			=> $game['user_win'] === $userId ? true : false,
+			'userWon'		=> $gameWinData['user_win'] ?? null,
+			'win'			=> $gameWinData['user_win'] === $userId ? true : false,
+			'lost'			=> $gameWinData['user_win'] !== $userId ? true : false,
 		];
 
 		if (

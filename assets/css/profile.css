@@ -24,3 +24,10 @@ input {
     margin-top: 15px;
     padding-left: 17px;
 }
+
+@media screen and (max-width: 500px) {
+    .user-inputs {
+        margin-top: 10px;
+        padding-left: 10px;
+    }
+}

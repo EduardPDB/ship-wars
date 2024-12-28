@@ -30,17 +30,19 @@ const token     = localStorage.getItem('token');
 function checkToken(hideLoading) {
     if (!token) {
         window.location = `${baseUrl}${pathArray}login`;
+        return;
     }
     if (token) {
         post(buildUrl('checkToken')).then(response => {
             if (response.status !== 'ok') {
                 localStorage.removeItem('token');
                 window.location = `${baseUrl}${pathArray}login`;
+            } else {
+                const token = response.data.token;
+                localStorage.setItem('token', token);
+                if (hideLoading !== false) hideLoadingPage();
             }
         })
-    }
-    if (hideLoading !== false) {
-        hideLoadingPage();
     }
 }
 

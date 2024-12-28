@@ -50,10 +50,25 @@ class AuthModel extends BaseModel {
         return $token['name'] ?? null;
     }
 
-    public function getTokenNameByUserId(int $userId): ?string
+    public function getTokenNameByUserId($userId): ?string
     {
         $token = $this->dbSelect('tokens', ['user_id' => $userId], false);
         return $token['name'] ?? null;
+    }
+
+    public function validateEmail($email) {
+        $firstPart = explode('@', $email);
+        if (count($firstPart) !== 2) return false; // Check if @ exists
+        $secondPart = explode('.', $firstPart[1]);
+        if (count($secondPart) !== 2) return false; // Check if . exists
+        return true;
+    }
+
+    public function validatePassword($password) {
+        if (strlen($password) < 8) {
+            return false;
+        }
+        return true;
     }
 
     /**
