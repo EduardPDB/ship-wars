@@ -16,4 +16,4 @@ The MVC framework that I have created has nice features like:
 2. Start a new game
 3. Copy the id of the game and send it to a friend (if you don't have friend :(, you can send it to me, we can play toghether)
 4. Place the ships
-5. Try to destroy the enemy ships (**The top table**)
+5. Try to destroy the enemy ships (**Attack the top table**)
