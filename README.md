@@ -1,9 +1,9 @@
 This is a multiplayer ship wars games.
 Here is the link where you can play it: http://shipwars.great-site.net
 
-This is not fully optimized for mobile (it can be played on a mobile, but its a bit harder to place the ships)
+It is not fully optimized for mobile (it can be played on a mobile, but its a bit harder to place the ships)
 
-This was made with php, mysql, html, css and javascript.
+The game has been made with php, mysql, html, css and javascript.
 No framework has been used for this project and I have created an MVC system that uses OOP that handles the API requests.
 
 The MVC framework that I have created has nice features like:
